@@ -1,5 +1,8 @@
-RPE text 0.0.2
---
+# ROPE TEXT
+
+#rope library
+[download](https://github.com/StanLepunK/Rope/blob/master/build_rope/Rope.zip)
+
 
 void RPE_text_font(String font_path, int size) ;
 

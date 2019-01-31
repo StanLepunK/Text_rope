@@ -213,15 +213,15 @@ void RPE_text_effect_wave(int entry, int exit, boolean loop, float speed, int...
 /**
 cloud
 */
-void RPE_text_effect_cloud(boolean loop, Vec... amp) {
+void RPE_text_effect_cloud(boolean loop, vec... amp) {
   RPE_text_effect_cloud(0, letter_sequence.length, loop, amp) ;
 }
 
-void RPE_text_effect_cloud(int entry, boolean loop, Vec... amp) {
+void RPE_text_effect_cloud(int entry, boolean loop, vec... amp) {
   RPE_text_effect_cloud(entry, entry +amp.length, loop, amp) ;
 }
 
-void RPE_text_effect_cloud(int entry, int exit, boolean loop, Vec... amp) {
+void RPE_text_effect_cloud(int entry, int exit, boolean loop, vec... amp) {
 	create_font_point(ref_sentence, spacing_rpe_text, ref_size, false) ;
   int index = 0 ;
   if(loop && entry > exit) {
@@ -233,11 +233,11 @@ void RPE_text_effect_cloud(int entry, int exit, boolean loop, Vec... amp) {
   
   for(int i = entry ; i < exit ; i++) {
     if(index < amp.length) {
-      if(amp[index] instanceof Vec3) {
-        Vec3 v = (Vec3)amp[index] ;
+      if(amp[index] instanceof vec3) {
+        vec3 v = (vec3)amp[index] ;
         rpe_cloud_letter(letter_sequence[i], (int)v.x, (int)v.y, (int)v.z) ;
-      } else if(amp[index] instanceof Vec2) {
-        Vec2 v = (Vec2)amp[index] ;
+      } else if(amp[index] instanceof vec2) {
+        vec2 v = (vec2)amp[index] ;
         rpe_cloud_letter(letter_sequence[i], (int)v.x, (int)v.y, 0) ;
       }
     }
@@ -343,7 +343,7 @@ void text_letter_impl(char ch, int index, float x, float y, float z) {
 			if(!vertex_char) {
 				if(renderer_P3D()) {
 					matrix_start() ;
-					Vec3 pos = Vec3(x,y,z) ;
+					vec3 pos = vec3(x,y,z) ;
 					translate(pos) ;
 					text(ch, 0, 0) ;
 					matrix_end() ;
@@ -351,7 +351,7 @@ void text_letter_impl(char ch, int index, float x, float y, float z) {
 					text(ch, x, y) ;
 				}
 			} else if(vertex_char) {
-				Vec3 pos = Vec3(x,y,z) ;
+				vec3 pos = vec3(x,y,z) ;
 				text_vertex_show(index, pos) ;
 			}
 			g.textAlign = alignment ;
@@ -394,8 +394,8 @@ effect cloud
 void rpe_cloud_letter(Letter letter, int amp_x, int amp_y, int amp_z) {
   if(letter != null) {
     for(int i = 0 ; i < letter.pos.length ; i++) {
-      Vec3 cloud = Vec3("RANDOM", amp_x, amp_y, amp_z) ;
-      Vec3 ref = Vec3(letter.pos[i]) ;
+      vec3 cloud = vec3("RANDOM", amp_x, amp_y, amp_z) ;
+      vec3 ref = vec3(letter.pos[i]) ;
       letter.pos[i].set(ref.add(cloud)) ;
     }
   }  
@@ -429,7 +429,7 @@ SHOW VERTEX FONT
 */
 
 
-void text_vertex_show(int which_one, Vec3 pos) {
+void text_vertex_show(int which_one, vec3 pos) {
 	if(which_one < letter_sequence.length && letter_sequence[which_one] != null) {
 		matrix_start() ;
 		translate(pos) ;
@@ -530,10 +530,10 @@ void create_font_point(String sentence, int space, int size, boolean init) {
 Letter letter_build(RPoint[] points) {
 	Letter l = new Letter() ;
 	if(points != null){
-		Vec3 [] temp_pos = new Vec3[points.length] ;
+		vec3 [] temp_pos = new vec3[points.length] ;
 		for(int i=0; i < points.length; i++) {
 			float pos_z = 0 ;
-			temp_pos[i] = Vec3(points[i].x, points[i].y, pos_z) ;
+			temp_pos[i] = vec3(points[i].x, points[i].y, pos_z) ;
 		}
 		l.set(temp_pos) ;
 	}
@@ -596,17 +596,17 @@ class Letter
 
 
 class Letter {
-  Vec3 [] pos ;
+  vec3 [] pos ;
   // constructor
   Letter() {
   	pos = null ;
   } 
   
-  Letter(Vec3 [] pos) {
+  Letter(vec3 [] pos) {
     this.pos = pos.clone() ;
   }
   
-  void set(Vec3 [] pos) {
+  void set(vec3 [] pos) {
     this.pos = pos.clone() ;
   }
 }
